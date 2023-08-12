@@ -1,8 +1,11 @@
-;;; spout.el --- speed keys for outline/foldout modes  -*- lexical-binding: t; -*-
+;;; spout.el --- Speed keys for outline/foldout modes  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2023  Paul D. Nelson
 
 ;; Author: Paul D. Nelson <nelson.paul.david@gmail.com>
+;; Version: 1.0
+;; URL: https://github.com/ultronozm/spout.el
+;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: convenience, outline
 
 ;; This program is free software; you can redistribute it and/or modify
