@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023  Paul D. Nelson
 
 ;; Author: Paul D. Nelson <nelson.paul.david@gmail.com>
-;; Keywords: 
+;; Keywords: convenience, outline
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -72,11 +72,11 @@
 
 (defun spout--insert-or (command1 command2)
   "Return lambda function with conditional behavior.
-
-When the lambda function is called interactively, it first checks if
-the point is at the beginning of a heading (using `outline-on-heading-p`),
-and if so, calls the function represented by COMMAND1 (using `call-interactively`).
-Otherwise, it calls the function represented by COMMAND2."
+When the lambda function is called interactively, it first checks
+if the point is at the beginning of a heading (using
+`outline-on-heading-p'), and if so, calls the function
+represented by COMMAND1 (using `call-interactively').  Otherwise,
+it calls the function represented by COMMAND2."
   `(lambda ()
      (interactive)
      (if (and (outline-on-heading-p) (bolp))
@@ -85,13 +85,11 @@ Otherwise, it calls the function represented by COMMAND2."
 
 (defun spout--define-key (keymap key command1 command2)
   "In KEYMAP, bind KEY to a conditional command.
-
 This function defines a new function that wraps COMMAND1 and
-COMMAND2 with `spout-insert-or`, and then binds that function to
-KEY in KEYMAP using `define-key`.
+COMMAND2 with `spout-insert-or', and then binds that function to
+KEY in KEYMAP using `define-key'.
 
-If COMMAND2 is nil, then it defaults to self-insert-command
-"
+If COMMAND2 is nil, then it defaults to `'self-insert-command'."
   (let* ((command2 (or command2 #'self-insert-command))
 	 (func
 	  (defalias (intern (concat "spout--" (symbol-name command1)))
