@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023  Paul D. Nelson
 
 ;; Author: Paul D. Nelson <nelson.paul.david@gmail.com>
-;; Version: 1.0
+;; Version: 0.1
 ;; URL: https://github.com/ultronozm/spout.el
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: convenience, outline
@@ -24,8 +24,54 @@
 ;;; Commentary:
 
 ;; This package provides a "speed key" minor mode for outline/foldout
-;; modes, where single keypresses activate commands.  It's inspired by
-;; the speed key functionality in org-mode.
+;; modes, inspired by the speed key functionality in org-mode.  The
+;; idea is that when the point is at the beginning of a section
+;; heading, the user can navigate or edit the document using single
+;; keypresses.
+;;
+;; I use it when editing LaTeX.  Here's my basic setup:
+;;
+;; (use-package latex
+;;   :ensure auctex
+;;   :bind
+;;   (:map LaTeX-mode-map
+;;         ("s-n" . outline-next-heading)
+;;         ("s-p" . outline-previous-heading)))
+;; 
+;; (use-package foldout
+;;   :ensure t)
+;; 
+;; (use-package spout
+;;   :vc (:url "https://github.com/ultronozm/spout.el.git"
+;;             :rev :newest)
+;;   :after latex
+;;   :hook
+;;   (LaTeX-mode . spout-mode)
+;;   :config
+;;   (require 'texmathp)
+;;   (defun LaTeX-skip-verbatim (orig-fun &rest args)
+;;     (if (eq major-mode 'latex-mode)
+;;         (let ((n 100))
+;;           (apply orig-fun args)
+;;           (while (and (LaTeX-verbatim-p) (> n 0))
+;;             (setq n (- n 1))
+;;             (apply orig-fun args)))
+;;       (apply orig-fun args)))
+;;   (dolist (f '(outline-next-heading
+;;                outline-previous-heading
+;;                outline-up-heading
+;;                outline-forward-same-level
+;;                outline-backward-same-level))
+;;     (advice-add f :around #'LaTeX-skip-verbatim)))
+;;
+;; The idea is that you can always navigate to a nearby section
+;; heading using "s-n" or "s-p", after which you can use individual
+;; keys to navigate.
+;;
+;; I suppose something similar could also be achieved using
+;; `repeat-mode' (see for instance
+;; https://karthinks.com/software/a-consistent-structural-editing-interface/).
+;; See also the `latex-extra' package.
 
 ;;; Code:
 
