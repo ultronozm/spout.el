@@ -108,7 +108,7 @@
 
 (define-minor-mode spout-mode
   "Toggle spout mode."
-  :lighter "SPT"
+  :lighter nil
   (if spout-mode
       (spout-initialize)))
 
