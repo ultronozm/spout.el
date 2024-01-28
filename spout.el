@@ -115,6 +115,7 @@
 (defun spout-initialize ()
   "Set up the key bindings for the spout minor mode."
   ;; (setq spout-mode-map (make-sparse-keymap))
+  (setcdr spout-mode-map nil)
   (dolist (bind spout-keys)
     (apply #'spout--define-key (list spout-mode-map
 				     (car bind) (cadr bind) (caddr bind)))))
