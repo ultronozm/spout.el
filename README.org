@@ -6,6 +6,8 @@ This package provides a "speed key" minor mode for outline/foldout modes, inspir
 
 I've used this only for editing LaTeX.
 
+Note: as of March 2024, I've stopped using this package in favor of a functionally equivalent setup based on [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Repeating.html][repeat-mode]] (see the definition of =outline-repeat-map= in [[https://github.com/ultronozm/emacsd][my config]]).
+
 * Related packages
 I figured there's no harm in sharing this package, which is what I've been in the habit of using, but you might be better off with the following alternatives:
 
